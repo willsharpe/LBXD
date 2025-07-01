@@ -48,10 +48,6 @@ export default function Home(){
           <MovieGrid />
       </motion.div>
     
-        
-     
-      
-      
     </div>
 
     
