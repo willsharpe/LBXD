@@ -4,7 +4,7 @@ import { Movie } from "../types/movies"
 import  MovieCard  from "./MovieCard";
 import axios from "axios";
 
-export default function MovieGrid(){
+export default function MovieGrid({isPopupVisible}:{isPopupVisible:boolean}){
     const [movies,setMovies] = useState([]); // movie data
     useEffect(() => {
         async function fetchMovies() {
@@ -23,12 +23,12 @@ export default function MovieGrid(){
             setMovies(results);
             console.log(movies);
         }
-        fetchMovies()                                                  // The useEffect function
+        fetchMovies()                // The useEffect function
 
     }, [] );  // Empty dependency array only runs on first mount
 
     return (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-6">
+        <div className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-6 ${isPopupVisible ? 'blur-sm' : ''}`}>
             {movies.map((movie:any) => (                  // Maps all the movies to render each specific one
                 <MovieCard key={movie.id} movie={movie}/> // key and movie are props
             ))}

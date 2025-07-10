@@ -4,13 +4,32 @@ import MovieCard from "../components/MovieCard";
 import { Roboto_Mono } from "next/font/google";
 import { motion, useMotionValue } from "framer-motion";
 import NavBar from "../components/NavBar";
+import SignInCard from "../components/SignInCard";
+import MovieIcon from "../components/MovieIcon";
 const roboto = Roboto_Mono({
     subsets:["latin"],
     weight:"400",
 });
+interface NavBarProps {
+  onSignInClick: () => void;
+  onSignUpClick: () => void;
+}
 
-function topRated(){
+function TopRated(){
     const [movies,setMovies] = useState<any[]>([]);
+    const [isPopupVisible, setIsPopupVisible] = useState(false);
+
+    const handleSignInClick = () => {
+        setIsPopupVisible(true);
+    };
+
+    const handleClosePopup = () => {
+        setIsPopupVisible(false);
+    };
+    const handleSignUpClick = () => {
+        setIsPopupVisible(true);
+    }
+
     useEffect(() => {
         async function fetchTopRated() {
             const results = [];
@@ -36,7 +55,8 @@ function topRated(){
     },[])
     return(
         <>
-        <NavBar/>
+        <MovieIcon/>
+        <NavBar onSignInClick={handleSignInClick} onSignUpClick={handleSignUpClick} />
         <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -44,16 +64,17 @@ function topRated(){
         viewport={{ once: true }}
         className={`text-center py-0 text-4xl font-bold my-10 ${roboto.className}`}
       >
-        Letterboxd Clone
+        Top Rated Films
       </motion.div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-6">
+        <div className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-6 ${isPopupVisible ? 'blur-sm' : ''}`}>
             {movies.map(movie =>(
                 <MovieCard key={movie.id} movie={movie}/>
             ))}
         </div>
+        {isPopupVisible && <SignInCard onClose={handleClosePopup} />}
         </>
 
     )
 }
 
-export default topRated
+export default TopRated

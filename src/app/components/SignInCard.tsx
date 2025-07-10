@@ -1,0 +1,69 @@
+"use client";
+import { AiOutlineCloseCircle } from "react-icons/ai";
+
+interface SignInCardProps {
+  onClose: () => void;
+}
+
+function SignInCard({ onClose }: SignInCardProps) {
+  return (
+    <div className="fixed inset-0 bg-grey bg-opacity-50 flex justify-center items-center z-50">
+      <form
+        id="signin"
+        className="bg-white text-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm relative"
+      >
+        {/* Close button */}
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute top-2 right-2 text-gray-500 hover:text-red-600"
+        >
+          <AiOutlineCloseCircle size={24} />
+        </button>
+
+        {/* Title */}
+        <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">
+          Sign In
+        </h2>
+
+        {/* Username Field */}
+        <div className="mb-4">
+          <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">
+            Username
+          </label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-sky-500"
+            placeholder="Enter your username"
+          />
+        </div>
+
+        {/* Password Field */}
+        <div className="mb-6">
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-sky-500"
+            placeholder="Enter your password"
+          />
+        </div>
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full bg-sky-600 text-white py-2 rounded-md hover:bg-sky-700 transition-colors duration-200"
+        >
+          Sign In
+        </button>
+      </form>
+    </div>
+  );
+}
+
+export default SignInCard;
