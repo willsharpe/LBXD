@@ -102,7 +102,7 @@ function ReviewPageInfo({ movieID }: { movieID: string }) {
                 <strong>Runtime:</strong> {movieData.runtime} min
               </p>
               <p className="text-m mb-2">
-                <strong>Rating:</strong> {movieData.vote_average}/10
+                <strong>Rating:</strong> {(movieData.vote_average / 2).toFixed(1)} / 5
               </p>
               <p className="text-m mb-2">
                 <strong>Genres:</strong>{" "}
