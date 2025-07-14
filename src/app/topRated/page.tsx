@@ -6,29 +6,22 @@ import { motion, useMotionValue } from "framer-motion";
 import NavBar from "../components/NavBar";
 import SignInCard from "../components/SignInCard";
 import MovieIcon from "../components/MovieIcon";
+import SignUpCard from "../components/SignUpCard";
 const roboto = Roboto_Mono({
     subsets:["latin"],
     weight:"400",
 });
-interface NavBarProps {
-  onSignInClick: () => void;
-  onSignUpClick: () => void;
-}
+
 
 function TopRated(){
     const [movies,setMovies] = useState<any[]>([]);
     const [isPopupVisible, setIsPopupVisible] = useState(false);
+    const [popupType, setPopupType] = useState<"signin" | "signup" | null>(null);
 
-    const handleSignInClick = () => {
-        setIsPopupVisible(true);
-    };
 
-    const handleClosePopup = () => {
-        setIsPopupVisible(false);
-    };
-    const handleSignUpClick = () => {
-        setIsPopupVisible(true);
-    }
+    const handleSignInClick = () => setPopupType("signin");
+    const handleSignUpClick = () => setPopupType("signup");
+    const handleClosePopup = () => setPopupType(null);
 
     useEffect(() => {
         async function fetchTopRated() {
@@ -66,12 +59,13 @@ function TopRated(){
       >
         Top Rated Films
       </motion.div>
-        <div className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-6 ${isPopupVisible ? 'blur-sm' : ''}`}>
+        <div className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-6 ${popupType ? 'blur-sm' : ''}`}>
             {movies.map(movie =>(
                 <MovieCard key={movie.id} movie={movie}/>
             ))}
         </div>
-        {isPopupVisible && <SignInCard onClose={handleClosePopup} />}
+        {popupType === "signin" && <SignInCard onClose={handleClosePopup} />}
+        {popupType === "signup" && <SignUpCard onClose={handleClosePopup} />}
         </>
 
     )

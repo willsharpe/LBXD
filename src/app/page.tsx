@@ -42,10 +42,7 @@ export default function Home(){
     setSignInPopupVisible(false);
   };
 
-  const handleReviewClick = () => {
-    setReviewPopupVisible(true);
-  };
-
+  
 
 
 
