@@ -10,6 +10,7 @@ import MovieGrid from "./components/MovieGrid";
 import SignInCard from "./components/SignInCard";
 import SignUpCard from "./components/SignUpCard";
 import MovieIcon from "./components/MovieIcon";
+
 const rubik = Rubik_Glitch({
   subsets:['latin'],
   weight:'400',
@@ -50,6 +51,7 @@ export default function Home(){
   return(
     <>
     <MovieIcon/>
+    
     <div className={`relative h-[900px]  bg-center bg-no-repeat bg-cover ${signInPopUpVisible ? 'blur-sm' : ''} ${signUpPopUpVisible ? 'blur-sm': ''}`}
     style={{ backgroundImage: `url('/306069-3840x2160-desktop-4k-interstellar-wallpaper.jpg')`, backgroundSize:'auto 700px'}}
     >

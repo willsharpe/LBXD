@@ -58,12 +58,20 @@ function TopRated(){
         className={`text-center py-0 text-4xl font-bold my-10 ${roboto.className}`}
       >
         Top Rated Films
-      </motion.div>
-        <div className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-6 ${popupType ? 'blur-sm' : ''}`}>
-            {movies.map(movie =>(
-                <MovieCard key={movie.id} movie={movie}/>
-            ))}
-        </div>
+        </motion.div>
+        <motion.div
+                initial= {{opacity:0,scale:0.95 }}
+                whileInView={{ opacity: 1, scale:1}}
+                transition={{ duration: 1.0}}
+                viewport={{ once:true}}
+                className="container mx-auto px-4">
+                 <div className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-6 ${popupType ? 'blur-sm' : ''}`}>
+                    {movies.map(movie =>(
+                    <MovieCard key={movie.id} movie={movie}/>
+                ))}
+                </div>
+        </motion.div>
+       
         {popupType === "signin" && <SignInCard onClose={handleClosePopup} />}
         {popupType === "signup" && <SignUpCard onClose={handleClosePopup} />}
         </>

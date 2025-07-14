@@ -21,14 +21,13 @@ export default function MovieGrid({isPopupVisible}:{isPopupVisible:boolean}){
             const data = await res.json();
             const results = data.results;
             setMovies(results);
-            console.log(movies);
         }
         fetchMovies()                // The useEffect function
 
     }, [] );  // Empty dependency array only runs on first mount
 
     return (
-        <div className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 p-6 ${isPopupVisible ? 'blur-sm' : ''}`}>
+        <div className={`grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 p-6 ${isPopupVisible ? 'blur-sm' : ''}`}>
             {movies.map((movie:any) => (                  // Maps all the movies to render each specific one
                 <MovieCard key={movie.id} movie={movie}/> // key and movie are props
             ))}

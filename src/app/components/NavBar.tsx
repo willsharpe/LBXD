@@ -40,6 +40,11 @@ function NavBar({onSignInClick,onSignUpClick}:NavBarProps) {
           Upcoming
         </button>
       </Link>
+      <Link href="/accountPage">
+        <button className="px-4 py-2 bg-sky-600 text-white rounded-md hover:bg-sky-700 transition-colors duration-200">
+          Account
+        </button>
+      </Link>
     </header>
   );
 }

@@ -1,3 +1,6 @@
+"use client";
+import {useState} from "react";
+
 import { AiOutlineCloseCircle } from "react-icons/ai";
 interface SignInCardProps {
         onClose: () => void;
@@ -5,11 +8,43 @@ interface SignInCardProps {
 
 
 function SignUpCard({onClose}:SignInCardProps){
+    const [username,setUsername] = useState("");
+    const [password,setPassword] = useState("");
+    const [email,setEmail] = useState("");
+    const [message,setMessage] = useState("");
+  
+    const handleSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+      signUp(email,username, password);
+    };
+  
+    const signUp = async (email:string, username: string, password: string) => {
+          try {
+              const res = await fetch('http://localhost:5000/api/auth/register',{
+                  method:"POST",
+                  headers : {
+                      'Content-Type' : 'application/json',
+                  },
+                  body: JSON.stringify({email,username,password}),
+              });
+              const data = await res.json();
+              if(!res.ok){
+                  setMessage(data.message || "Something went wrong");
+                  return;
+              }
+              setMessage(data.message);
+              console.log("Account successfully created:", data);
+          } catch(err) {
+              console.error("Account creation failed:");
+          }
+      };
+  
     return(
         <div className="fixed inset-0 bg-grey bg-opacity-50 flex justify-center items-center z-50">
               <form
                 id="signup"
                 className="bg-white text-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm relative"
+                onSubmit={handleSubmit}
               >
                 {/* Close button */}
                 <button
@@ -37,6 +72,7 @@ function SignUpCard({onClose}:SignInCardProps){
                     name="email"
                     className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-sky-500"
                     placeholder="Enter the email you want associated with your account"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
 
@@ -53,6 +89,7 @@ function SignUpCard({onClose}:SignInCardProps){
                     name="username"
                     className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-sky-500"
                     placeholder="Create a Username"
+                    onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
         
@@ -67,6 +104,7 @@ function SignUpCard({onClose}:SignInCardProps){
                     name="password"
                     className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring-2 focus:ring-sky-500"
                     placeholder="Enter your password"
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
         
@@ -77,6 +115,9 @@ function SignUpCard({onClose}:SignInCardProps){
                 >
                   Create Account
                 </button>
+                {message && (
+                  <p>{message}</p>
+                )}
               </form>
             </div>
     );
